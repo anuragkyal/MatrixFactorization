@@ -67,11 +67,8 @@ public class ItemBased {
                 int count = 0;
 
                 for (int j = 0; j < item_count; j++) {
-                    if (sim[u][j] >= m) {
-                        if (ratings[j][v] > 0) {
-                            sum += ratings[j][v];
-                            count++;
-                        }
+                    if (ratings[j][v] > 0) {
+
                     }
                 }
 

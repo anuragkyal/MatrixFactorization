@@ -66,25 +66,29 @@ public class UserBased extends Thread{
                     break;
             }
 
+            float[] avg = getAvgRating(ratings);
+
             for (int i = 0; i < test.length; i++) {
                 int u = test[i][0];
                 int v = test[i][1];
                 int r = test[i][2];
 
-                int sum = 0;
+                float sum = 0;
+                float normal = 0;
                 int count = 0;
 
                 for (int j = 0; j < user_count; j++) {
-                    if (sim[u][j] >= th) {
-                        if (ratings[j][v] > 0) {
-                            sum += ratings[j][v];
-                            count++;
-                        }
+                    float t = ratings[j][v];
+                    if (t > 0) {
+                        float sim_t = sim[i][j];
+                        sum += sim_t * (t - avg[j]);
+                        normal += sim_t;
+                        count++;
                     }
                 }
 
-                if (count != 0) {
-                    float t = r - (float) sum / count;
+                if (count > 0) {
+                    float t = avg[i] + sum/normal;
                     error[k] += t * t;
                     norm++;
                 }
@@ -95,6 +99,26 @@ public class UserBased extends Thread{
         }
         
         return error;
+    }
+
+    float[] getAvgRating(int[][] ratings){
+        float[] avg = new float[user_count];
+
+        for(int i=0; i<user_count; i++){
+            int ratingSum = 0;
+            int count = 0;
+
+            for(int j=0; j<item_count; j++){
+                if(ratings[i][j] > 0){
+                    ratingSum += ratings[i][j];
+                    count++;
+                }
+            }
+
+            avg[i] = count > 0 ? (float)ratingSum/count : 0;
+        }
+
+        return avg;
     }
 
     void copy(int[][] source, int[][] target){
@@ -228,7 +252,7 @@ public class UserBased extends Thread{
 
         float[] t = new float[]{.09f, 1f, 1.1f};
 
-        for(int m = 0; m<t.length; m++) {
+        for(int m = 0; m<1; m++) {
             float[] globalError = new float[3];
             float[][] errors = new float[3][folds];
 
