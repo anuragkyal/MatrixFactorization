@@ -27,6 +27,7 @@ public class ItemBased {
                 test[counter][0] = u;
                 test[counter][1] = v;
                 test[counter][2] = train[u][v];
+                train[u][v] = 0;
                 counter++;
             }
         }
@@ -37,6 +38,7 @@ public class ItemBased {
         float[][] cosineSim = getCosineSimilarity(train);
 
         float[] error = new float[3];
+        float[] avg = getAvgRating(train);
 
         for(int k=0; k<3; k++) {
             int norm = 0;
@@ -63,17 +65,25 @@ public class ItemBased {
                 int v = test[i][1];
                 int r = test[i][2];
 
-                int sum = 0;
+                float sum = 0;
+                float normal = 0;
                 int count = 0;
 
                 for (int j = 0; j < item_count; j++) {
-                    if (ratings[j][v] > 0) {
+                    float t = train[j][v];
 
+                    if (t > 0) {
+                        float sim_t = sim[u][j];
+                        sum += sim_t * (t - avg[j]);
+                        normal += sim_t;
+                        count++;
                     }
                 }
 
-                if (count != 0) {
-                    float t = r - (float) sum / count;
+                if (count > 0 && normal > 0) {
+                    float t = avg[u] + sum/normal;
+                    t = t > 5 ? 5 : t;
+                    t = t - r;
                     error[k] += t * t;
                     norm++;
                 }
@@ -84,6 +94,26 @@ public class ItemBased {
         }
 
         return error;
+    }
+
+    float[] getAvgRating(int[][] ratings){
+        float[] avg = new float[item_count];
+
+        for(int i=0; i<item_count; i++){
+            int ratingSum = 0;
+            int count = 0;
+
+            for(int j=0; j<user_count; j++){
+                if(ratings[i][j] > 0){
+                    ratingSum += ratings[i][j];
+                    count++;
+                }
+            }
+
+            avg[i] = count > 0 ? (float)ratingSum/count : 0;
+        }
+
+        return avg;
     }
 
     void copy(int[][] source, int[][] target){
@@ -122,21 +152,27 @@ public class ItemBased {
 
     public float[][] getPearsonSimilarity(int[][] ratings){
         float[][] sim = new float[item_count][item_count];
-        int[] sum = populateSum(ratings);
-        int[] sumSquare = populateSumSquare(ratings);
+        float[] avg = getAvgRating(ratings);
 
         for(int i=0; i<item_count; i++){
             for(int j=i+1; j<item_count; j++){
-                int t = 0;
+                float num = 0;
+                float diffSq1 = 0;
+                float diffSq2 = 0;
 
                 for(int k=0; k<user_count; k++){
-                    t += ratings[i][k] * ratings[j][k];
+                    if(ratings[i][k] > 0 && ratings[j][k] > 0){
+                        float diff1 = ratings[i][k] - avg[i];
+                        float diff2 = ratings[j][k] - avg[j];
+
+                        num += diff1*diff2;
+                        diffSq1 += diff1*diff1;
+                        diffSq2 += diff2*diff2;
+                    }
                 }
 
-                int sum_i = sum[i];
-                int sum_j = sum[j];
-
-                float sim_t = (float) ((t - sum_i*sum_j/user_count) / Math.sqrt((sumSquare[i] - sum_i*sum_i/user_count) * (sumSquare[j] - sum_j*sum_j/user_count)));
+                //float sim_t = (float) ((t - sum_i*sum_j/user_count) / Math.sqrt((sumSquare[i] - sum_i*sum_i/user_count) * (sumSquare[j] - sum_j*sum_j/user_count)));
+                float sim_t = (float) (num/(Math.sqrt(diffSq1)*Math.sqrt(diffSq2)));
                 sim[i][j] = sim_t;
                 sim[j][i] = sim_t;
             }
@@ -217,7 +253,7 @@ public class ItemBased {
 
         float[] t = new float[]{.05f, .07f, .075f, .08f};
 
-        for(int m = 0; m<t.length; m++) {
+        for(int m = 0; m<1; m++) {
             float[] globalError = new float[3];
             float[][] errors = new float[3][folds];
 
