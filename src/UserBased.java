@@ -225,11 +225,13 @@ public class UserBased extends Thread{
 
     public void performTenFold(int[][] ratings){
         int folds = 5;
-        float[] globalError = new float[3];
-        float[][] errors = new float[3][folds];
-        float[] t = new float[]{.01f, .05f, .07f, .09f, 1.2f, 1.4f};
+
+        float[] t = new float[]{.09f, 1f, 1.1f};
 
         for(int m = 0; m<t.length; m++) {
+            float[] globalError = new float[3];
+            float[][] errors = new float[3][folds];
+
             System.out.println("M=" + m);
             for (int i = 1; i <= folds; i++) {
                 System.out.println("Fold" + i);

@@ -11,7 +11,7 @@ public class ItemBased {
     int[][] ratings;
     int foldSize = 80000;
 
-    public float[] validateFold(int[][] ratings){
+    public float[] validateFold(int[][] ratings, float m){
         int counter = 0;
         int[][] train = new int[item_count][user_count];
         int[][] test = new int[foldSize][3];
@@ -67,7 +67,7 @@ public class ItemBased {
                 int count = 0;
 
                 for (int j = 0; j < item_count; j++) {
-                    if (sim[u][j] >= .03) {
+                    if (sim[u][j] >= m) {
                         if (ratings[j][v] > 0) {
                             sum += ratings[j][v];
                             count++;
@@ -216,29 +216,36 @@ public class ItemBased {
     }
 
     public void performTenFold(int[][] ratings){
-        float[] globalError = new float[3];
-        float[][] errors = new float[3][10];
+        int folds = 5;
 
-        for(int i=1; i<=10; i++){
-            System.out.println("Fold" + i);
-            float[] tempError = validateFold(ratings);
+        float[] t = new float[]{.05f, .07f, .075f, .08f};
 
-            for(int j=0; j<3; j++){
-                globalError[j] += tempError[j];
-                errors[j][i-1] = tempError[j];
-            }
-        }
+        for(int m = 0; m<t.length; m++) {
+            float[] globalError = new float[3];
+            float[][] errors = new float[3][folds];
 
-        for(int i=0; i<3; i++){
-            globalError[i] /= 10;
-            System.out.println("Final:" + globalError[i]);
+            for (int i = 1; i <= folds; i++) {
+                System.out.println("Fold" + i);
+                float[] tempError = validateFold(ratings, t[m]);
 
-            System.out.print("Individual:");
-            for(int j=0; j<10; j++){
-                System.out.print(errors[i][j] + " ");
+
+                for (int j = 0; j < 3; j++) {
+                    globalError[j] += tempError[j];
+                    errors[j][i - 1] = tempError[j];
+                }
             }
 
-            System.out.println();
+            for (int i = 0; i < 3; i++) {
+                globalError[i] /= folds;
+                System.out.println("Final:" + globalError[i]);
+
+                System.out.print("Individual:");
+                for (int j = 0; j < folds; j++) {
+                    System.out.print(errors[i][j] + " ");
+                }
+
+                System.out.println();
+            }
         }
     }
 
