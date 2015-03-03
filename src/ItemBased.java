@@ -11,6 +11,10 @@ public class ItemBased {
     int[][] ratings;
     int foldSize = 80000;
 
+    ItemBased(int[][] ratings) throws IOException {
+        this.ratings = ratings;
+    }
+
     public float[] validateFold(int[][] ratings, float m){
         int counter = 0;
         int[][] train = new int[item_count][user_count];
@@ -34,13 +38,13 @@ public class ItemBased {
 
         //have the train and test ready here
         float[][] jaccardSim = getJaccardSimilarity(train);
-        float[][] pearsonSim = getPearsonSimilarity(train);
-        float[][] cosineSim = getCosineSimilarity(train);
+        float[][] pearsonSim = null;//getPearsonSimilarity(train);
+        float[][] cosineSim = null;//getCosineSimilarity(train);
 
         float[] error = new float[3];
         float[] avg = getAvgRating(train);
 
-        for(int k=0; k<3; k++) {
+        for(int k=0; k<1; k++) {
             int norm = 0;
             float[][] sim = null;
             String type = "";
@@ -152,27 +156,21 @@ public class ItemBased {
 
     public float[][] getPearsonSimilarity(int[][] ratings){
         float[][] sim = new float[item_count][item_count];
-        float[] avg = getAvgRating(ratings);
+        int[] sum = populateSum(ratings);
+        int[] sumSquare = populateSumSquare(ratings);
 
         for(int i=0; i<item_count; i++){
             for(int j=i+1; j<item_count; j++){
-                float num = 0;
-                float diffSq1 = 0;
-                float diffSq2 = 0;
+                int t = 0;
 
                 for(int k=0; k<user_count; k++){
-                    if(ratings[i][k] > 0 && ratings[j][k] > 0){
-                        float diff1 = ratings[i][k] - avg[i];
-                        float diff2 = ratings[j][k] - avg[j];
-
-                        num += diff1*diff2;
-                        diffSq1 += diff1*diff1;
-                        diffSq2 += diff2*diff2;
-                    }
+                    t += ratings[i][k] * ratings[j][k];
                 }
 
-                //float sim_t = (float) ((t - sum_i*sum_j/user_count) / Math.sqrt((sumSquare[i] - sum_i*sum_i/user_count) * (sumSquare[j] - sum_j*sum_j/user_count)));
-                float sim_t = (float) (num/(Math.sqrt(diffSq1)*Math.sqrt(diffSq2)));
+                int sum_i = sum[i];
+                int sum_j = sum[j];
+
+                float sim_t = (float) ((t - sum_i*sum_j/user_count) / Math.sqrt((sumSquare[i] - sum_i*sum_i/user_count) * (sumSquare[j] - sum_j*sum_j/user_count)));
                 sim[i][j] = sim_t;
                 sim[j][i] = sim_t;
             }
@@ -282,11 +280,58 @@ public class ItemBased {
         }
     }
 
-    public static void main(String args[]) throws IOException {
-        ItemBased itemBased = new ItemBased();
-        ReadRatings readRatings = new ReadRatings();
+    public float getRating(float[][] sim, float[] avg, int u, int v){
+        float sum = 0;
+        float normal = 0;
+        int count = 0;
 
-        int[][] ratings = readRatings.readRatingsItem();
-        itemBased.performTenFold(ratings);
+        for (int j = 0; j < item_count; j++) {
+            float t = ratings[j][v];
+
+            if (t > 0) {
+                float sim_t = sim[u][j];
+                sum += sim_t * (t - avg[j]);
+                normal += sim_t;
+                count++;
+            }
+        }
+
+        if (count > 0 && normal > 0) {
+            float t = avg[u] + sum/normal;
+            t = t > 5 ? 5 : t;
+            return t;
+        }
+
+        return 0;
+    }
+
+    public void performTest(int simType, int[][] test){
+        float[][] sim = null;
+        float[] avg = getAvgRating(ratings);
+
+        switch (simType){
+            case 1:
+                sim = getJaccardSimilarity(ratings);
+                break;
+            case 2:
+                sim = getPearsonSimilarity(ratings);
+                break;
+            case 3:
+                sim = getCosineSimilarity(ratings);
+                break;
+        }
+
+        for(int i=0; i<200000; i++){
+            int u = test[i][0];
+            int v = test[i][1];
+
+            System.out.println(getRating(sim, avg, v, u));
+        }
+    }
+
+    public static void main(String args[]) throws IOException {
+        ReadRatings readRatings = new ReadRatings();
+        ItemBased itemBased = new ItemBased(readRatings.readRatingsUser());
+        itemBased.performTenFold(itemBased.ratings);
     }
 }

@@ -15,9 +15,8 @@ public class UserBased extends Thread{
     int[][] ratings;
     int foldSize = 80000;
 
-    UserBased() throws IOException {
-        ReadRatings readRatings = new ReadRatings();
-        ratings = readRatings.readRatings();
+    UserBased(int[][] ratings) throws IOException {
+        this.ratings = ratings;
     }
 
     public float[] validateFold(int[][] ratings, float th){
@@ -42,14 +41,14 @@ public class UserBased extends Thread{
         }
 
         //have the train and test ready here
-        float[][] jaccardSim = getJaccardSimilarity(train);
-        float[][] pearsonSim = null;//getPearsonSimilarity(train);
+        float[][] jaccardSim = null;//getJaccardSimilarity(train);
+        float[][] pearsonSim = getPearsonSimilarity(train);
         float[][] cosineSim = null;//getCosineSimilarity(train);
 
         float[] error = new float[3];
         float[] avg = getAvgRating(train);
 
-        for(int k=0; k<1; k++) {
+        for(int k=1; k<2; k++) {
             int norm = 0;
             float[][] sim = null;
             String type = "";
@@ -161,27 +160,21 @@ public class UserBased extends Thread{
 
     public float[][] getPearsonSimilarity(int[][] ratings){
         float[][] sim = new float[user_count][user_count];
-        float[] avg = getAvgRating(ratings);
+        int[] sum = populateSum(ratings);
+        int[] sumSquare = populateSumSquare(ratings);
 
         for(int i=0; i<user_count; i++){
             for(int j=i+1; j<user_count; j++){
-                float num = 0;
-                float diffSq1 = 0;
-                float diffSq2 = 0;
+                int t = 0;
 
                 for(int k=0; k<item_count; k++){
-                    if(ratings[i][k] > 0 && ratings[j][k] > 0){
-                        float diff1 = ratings[i][k] - avg[i];
-                        float diff2 = ratings[j][k] - avg[j];
-
-                        num += diff1*diff2;
-                        diffSq1 += diff1*diff1;
-                        diffSq2 += diff2*diff2;
-                    }
+                    t += ratings[i][k] * ratings[j][k];
                 }
 
-                //float sim_t = (float) ((t - sum_i*sum_j/item_count) / Math.sqrt((sumSquare[i] - sum_i*sum_i/item_count) * (sumSquare[j] - sum_j*sum_j/item_count)));
-                float sim_t = (float) (num/(Math.sqrt(diffSq1)*Math.sqrt(diffSq2)));
+                int sum_i = sum[i];
+                int sum_j = sum[j];
+
+                float sim_t = (float) ((t - sum_i*sum_j/item_count) / Math.sqrt((sumSquare[i] - sum_i*sum_i/item_count) * (sumSquare[j] - sum_j*sum_j/item_count)));
                 sim[i][j] = sim_t;
                 sim[j][i] = sim_t;
             }
@@ -307,7 +300,7 @@ public class UserBased extends Thread{
             }
         }
 
-        if (count > 0) {
+        if (count > 0 && normal > 0) {
             float t = avg[u] + sum/normal;
             t = t > 5 ? 5 : t;
             return t;
@@ -328,7 +321,7 @@ public class UserBased extends Thread{
                 sim = getPearsonSimilarity(ratings);
                 break;
             case 3:
-                sim = getPearsonSimilarity(ratings);
+                sim = getCosineSimilarity(ratings);
                 break;
         }
 
@@ -341,7 +334,8 @@ public class UserBased extends Thread{
     }
 
     public static void main(String args[]) throws IOException {
-        UserBased userBased = new UserBased();
+        ReadRatings readRatings = new ReadRatings();
+        UserBased userBased = new UserBased(readRatings.readRatingsUser());
         userBased.performTenFold(userBased.ratings);
     }
 }

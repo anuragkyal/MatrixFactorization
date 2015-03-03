@@ -7,12 +7,14 @@ public class ReadRatings {
     int user_count = 6040;
     int item_count = 3952;
 
-    public int[][] readRatings() throws IOException {
+    public int[][] readRatingsUser() throws IOException {
+        return readRatingsItem("/Users/anurag/study/SEM-2/WEB/Assignments/src/raw_files/ratings.csv");
+    }
+
+    public int[][] readRatingsUser(String path) throws IOException {
         int[][] ratings = new int[user_count][item_count];
 
-        File f = new File("/raw_files/ratings.csv");
-
-        BufferedReader b = new BufferedReader(new FileReader("/Users/anurag/study/SEM-2/WEB/Assignments/src/raw_files/ratings.csv"));
+        BufferedReader b = new BufferedReader(new FileReader(path));
 
         String line = b.readLine();
         while(line != null){
@@ -29,11 +31,12 @@ public class ReadRatings {
     }
 
     public int[][] readRatingsItem() throws IOException {
+        return readRatingsItem("/Users/anurag/study/SEM-2/WEB/Assignments/src/raw_files/ratings.csv");
+    }
+
+    public int[][] readRatingsItem(String path) throws IOException {
         int[][] ratings = new int[item_count][user_count];
-
-        File f = new File("/raw_files/ratings.csv");
-
-        BufferedReader b = new BufferedReader(new FileReader("/Users/anurag/study/SEM-2/WEB/Assignments/src/raw_files/ratings.csv"));
+        BufferedReader b = new BufferedReader(new FileReader(path));
 
         String line = b.readLine();
         while(line != null){

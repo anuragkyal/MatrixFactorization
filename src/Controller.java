@@ -9,30 +9,34 @@ import java.io.InputStreamReader;
 public class Controller {
     public static void main(String args[]) throws IOException {
         Controller controller = new Controller();
+        ReadRatings readRatings = new ReadRatings();
 
         BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.print("1 for user based, 2 for item based");
+        System.out.print("1 for user based, 2 for item based: ");
         String s = b.readLine();
-
         int type = Integer.parseInt(s);
 
-        System.out.print("1 for Jaccard, 2 for Pearson, 3 for Cosine");
+        System.out.print("1 for Jaccard, 2 for Pearson, 3 for Cosine: ");
         s = b.readLine();
-
         int sim = Integer.parseInt(s);
 
-        System.out.print("Enter path of the test file:");
-        String path = b.readLine();
+        System.out.print("Enter path of the train file: ");
+        String trainPath = b.readLine();
 
-        int[][] test = controller.prepareTest(path);
+        System.out.print("Enter path of the test file: ");
+        String testPath = b.readLine();
+
+        int[][] test = controller.prepareTest(testPath);
         switch (type){
             case 1:
-                UserBased userBased = new UserBased();
+                UserBased userBased = new UserBased(readRatings.readRatingsUser(trainPath));
+                userBased.performTest(sim, test);
                 break;
 
             case 2:
-                ItemBased itemBased = new ItemBased();
+                ItemBased itemBased = new ItemBased(readRatings.readRatingsItem(trainPath));
+                itemBased.performTest(sim, test);
                 break;
         }
     }
@@ -49,8 +53,8 @@ public class Controller {
             int u = Integer.parseInt(parts[0]);
             int v = Integer.parseInt(parts[1]);
 
-            test[i][0] = u;
-            test[i][1] = v;
+            test[i][0] = u-1;
+            test[i][1] = v-1;
             i++;
 
             line = b.readLine();
