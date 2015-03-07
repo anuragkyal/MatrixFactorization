@@ -6,9 +6,9 @@ import java.io.InputStreamReader;
 /**
  * Created by anurag on 3/1/15.
  */
-public class Controller {
+public class Recommender {
     public static void main(String args[]) throws IOException {
-        Controller controller = new Controller();
+        Recommender recommender = new Recommender();
         ReadRatings readRatings = new ReadRatings();
 
         BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
@@ -27,7 +27,7 @@ public class Controller {
         System.out.print("Enter path of the test file: ");
         String testPath = b.readLine();
 
-        int[][] test = controller.prepareTest(testPath);
+        int[][] test = recommender.prepareTest(testPath);
         switch (type){
             case 1:
                 UserBased userBased = new UserBased(readRatings.readRatingsUser(trainPath));

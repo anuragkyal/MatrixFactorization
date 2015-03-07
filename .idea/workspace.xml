@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f61afe7b-3818-4ca9-9fda-7e965c0b8ed1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Combined.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/result1.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/result1.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/results2.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ItemBased.class" afterPath="$PROJECT_DIR$/src/ItemBased.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ReadRatings.class" afterPath="$PROJECT_DIR$/src/ReadRatings.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UserBased.class" afterPath="$PROJECT_DIR$/src/UserBased.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ItemBased.java" afterPath="$PROJECT_DIR$/src/ItemBased.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ReadRatings.java" afterPath="$PROJECT_DIR$/src/ReadRatings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UserBased.java" afterPath="$PROJECT_DIR$/src/UserBased.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/input.txt" afterPath="$PROJECT_DIR$/src/input.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Controller.java" afterPath="$PROJECT_DIR$/src/Recommender.java" />
     </list>
     <ignored path="assignment3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Controller.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller.java">
+      <file leaf-file-name="Recommender.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Recommender.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1020">
-              <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.04255319" vertical-offset="362" max-vertical-offset="1020">
+              <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -90,10 +79,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserBased.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="UserBased.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UserBased.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.6280324" vertical-offset="3799" max-vertical-offset="5400">
+            <state vertical-scroll-proportion="0.0" vertical-offset="4755" max-vertical-offset="5400">
               <caret line="346" column="52" selection-start-line="346" selection-start-column="52" selection-end-line="346" selection-end-column="52" />
               <folding />
             </state>
@@ -113,12 +102,13 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Controller.java" />
         <option value="$PROJECT_DIR$/src/ReadRatings.java" />
         <option value="$PROJECT_DIR$/src/Combined.java" />
         <option value="$PROJECT_DIR$/src/input.txt" />
         <option value="$PROJECT_DIR$/src/ItemBased.java" />
         <option value="$PROJECT_DIR$/src/UserBased.java" />
+        <option value="$PROJECT_DIR$/src/Controller.java" />
+        <option value="$PROJECT_DIR$/src/Recommender.java" />
       </list>
     </option>
   </component>
@@ -524,12 +514,12 @@
       <workItem from="1425694021153" duration="77000" />
       <workItem from="1425694124445" duration="49000" />
       <workItem from="1425694243733" duration="32000" />
-      <workItem from="1425694513780" duration="7706000" />
+      <workItem from="1425694513780" duration="7976000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7864000" />
+    <option name="totallyTimeSpent" value="8134000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1276" height="778" extended-state="6" />
@@ -542,7 +532,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39941692" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39941692" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -589,7 +579,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/Recommender.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1065">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
@@ -607,7 +597,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/Recommender.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="377" max-vertical-offset="1065">
           <caret line="40" column="9" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
@@ -615,28 +605,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/Recommender.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="377" max-vertical-offset="1065">
           <caret line="40" column="9" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Combined.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1980">
-          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="32" max-vertical-offset="1020">
-          <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
           <folding />
         </state>
       </provider>
@@ -645,14 +617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="135">
           <caret line="3" column="81" selection-start-line="3" selection-start-column="81" selection-end-line="3" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ReadRatings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="127" max-vertical-offset="900">
-          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -667,10 +631,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReadRatings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="127" max-vertical-offset="900">
+          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/UserBased.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.6280324" vertical-offset="3799" max-vertical-offset="5400">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5400">
           <caret line="346" column="52" selection-start-line="346" selection-start-column="52" selection-end-line="346" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Combined.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1980">
+          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Recommender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.04255319" vertical-offset="362" max-vertical-offset="1020">
+          <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
           <folding />
         </state>
       </provider>
