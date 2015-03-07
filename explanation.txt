@@ -1,0 +1,1 @@
+To get result3, I use the method proposed in results.txt by taking into account the user and item similarities equally. This method should perform better because I am eliminating any bias towards users or items in calculating similarity and predicting ratings.

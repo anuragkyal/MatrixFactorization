@@ -1,0 +1,5 @@
+a. To rate a user item pair, I pick compute the similarity of the user with all other users who have rated the item and the item with all other items which have been rated by this user. Then, I compute a weighted average of the ratings, weighted by similarity. For similarity, I use the Jaccard similarity measure as it is found to to be the best among the 3.
+
+b. To peform cross validation, I perform 10 iterations and in each iteration, I keep 1/10th of the ratings from known ratings as the test set. Also, I mark the ratings of the pair in the test set as 0. This process produces the train and test set. The train set is used for similarity calculations and then the test set uses the similarities to predict ratings.
+
+Note: The bar chart is present in this folder as bar.png

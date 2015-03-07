@@ -50,8 +50,8 @@ public class Combined {
             }
 
             int[][] itemRatings = transform(ratings);
-            float[][] userSim = userBased.getSimilarity(ratings, 2);
-            float[][] itemSim = itemBased.getSimilarity(itemRatings, 2);
+            float[][] userSim = userBased.getSimilarity(ratings, 3);
+            float[][] itemSim = itemBased.getSimilarity(itemRatings, 3);
 
             float rmse = 0;
             int errorCount = 0;
