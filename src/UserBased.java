@@ -333,6 +333,22 @@ public class UserBased extends Thread{
         }
     }
 
+    public float[][] getSimilarity(int[][] ratings, int type){
+        System.out.print("Calculating user sim: ");
+        switch (type){
+            case 1:
+                System.out.println("jaccard");
+                return getJaccardSimilarity(ratings);
+            case 2:
+                System.out.println("pearson");
+                return getPearsonSimilarity(ratings);
+            case 3:
+                System.out.println("cosine");
+                return getCosineSimilarity(ratings);
+            default:return null;
+        }
+    }
+
     public static void main(String args[]) throws IOException {
         ReadRatings readRatings = new ReadRatings();
         UserBased userBased = new UserBased(readRatings.readRatingsUser());

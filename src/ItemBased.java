@@ -329,6 +329,22 @@ public class ItemBased {
         }
     }
 
+    public float[][] getSimilarity(int[][] ratings, int type){
+        System.out.print("Calculating item sim:");
+        switch (type){
+            case 1:
+                System.out.println("Jaccard");
+                return getJaccardSimilarity(ratings);
+            case 2:
+                System.out.println("Pearson");
+                return getPearsonSimilarity(ratings);
+            case 3:
+                System.out.println("Cosine");
+                return getCosineSimilarity(ratings);
+            default:return null;
+        }
+    }
+
     public static void main(String args[]) throws IOException {
         ReadRatings readRatings = new ReadRatings();
         ItemBased itemBased = new ItemBased(readRatings.readRatingsUser());

@@ -8,7 +8,7 @@ public class ReadRatings {
     int item_count = 3952;
 
     public int[][] readRatingsUser() throws IOException {
-        return readRatingsItem("/Users/anurag/study/SEM-2/WEB/Assignments/src/raw_files/ratings.csv");
+        return readRatingsUser("/Users/anurag/study/SEM-2/WEB/Assignments/assignment3/src/raw_files/ratings.csv");
     }
 
     public int[][] readRatingsUser(String path) throws IOException {
