@@ -247,7 +247,7 @@ public class ItemBased {
     }
 
     public void performTenFold(int[][] ratings){
-        int folds = 5;
+        int folds = 10;
 
         float[] t = new float[]{.05f, .07f, .075f, .08f};
 

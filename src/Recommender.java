@@ -13,7 +13,7 @@ public class Recommender {
 
         BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.print("1 for user based, 2 for item based: ");
+        System.out.print("1 for user based, 2 for item based, 3 for combined: ");
         String s = b.readLine();
         int type = Integer.parseInt(s);
 
@@ -28,6 +28,7 @@ public class Recommender {
         String testPath = b.readLine();
 
         int[][] test = recommender.prepareTest(testPath);
+
         switch (type){
             case 1:
                 UserBased userBased = new UserBased(readRatings.readRatingsUser(trainPath));
@@ -37,6 +38,11 @@ public class Recommender {
             case 2:
                 ItemBased itemBased = new ItemBased(readRatings.readRatingsItem(trainPath));
                 itemBased.performTest(sim, test);
+                break;
+
+            case 3:
+                Combined combined = new Combined();
+                combined.performTest(readRatings.readRatingsUser(trainPath), test, sim);
                 break;
         }
     }

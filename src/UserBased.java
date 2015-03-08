@@ -251,7 +251,7 @@ public class UserBased extends Thread{
     }
 
     public void performTenFold(int[][] ratings){
-        int folds = 5;
+        int folds = 10;
 
         float[] t = new float[]{.09f, 1f, 1.1f};
 

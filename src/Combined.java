@@ -12,7 +12,7 @@ public class Combined {
     int foldSize = 80000;
     int user_count = 6040;
     int item_count = 3952;
-    int foldCount = 1;
+    int foldCount = 10;
 
     public Combined() throws IOException {
         userBased = new UserBased(null);
@@ -117,6 +117,44 @@ public class Combined {
         }
 
         return itemRatings;
+    }
+
+    public void performTest(int[][] ratings, int[][] test, int type){
+        int[][] itemRatings = transform(ratings);
+        float[][] userSim = userBased.getSimilarity(ratings, type);
+        float[][] itemSim = itemBased.getSimilarity(itemRatings, type);
+
+        for(int j=0; j<test.length; j++){
+            int userIndex = test[j][0];
+            int itemIndex = test[j][1];
+
+            float score = 0;
+            float norm = 0;
+
+            for(int k=0; k<user_count; k++){
+                float currUserRating = ratings[k][itemIndex];
+                float currUserSim = userSim[userIndex][k];
+                if(currUserRating > 0){
+                    score += currUserSim * currUserRating;
+                    norm += currUserSim;
+                }
+            }
+
+            for(int k=0; k<item_count; k++){
+                float currItemSim = itemSim[itemIndex][k];
+                float currItemRating = itemRatings[k][userIndex];
+                if(currItemRating > 0){
+                    score += currItemSim * currItemRating;
+                    norm += currItemSim;
+                }
+            }
+
+            if(norm > 0){
+                System.out.println(score/norm);
+            } else {
+                System.out.println(0);
+            }
+        }
     }
 
     public static void main(String args[]) throws IOException {
